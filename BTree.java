@@ -26,9 +26,21 @@ import java.util.Stack;
 public class BTree {
 
 	private BNode root;
+	private static int nodeCounter;
 	
 	public BTree() {
 		root = null;
+		nodeCounter = 0;
+	}
+	
+	public void findKthLargestNode(int k) {
+		if(root == null)
+			System.out.println("Tree is empty !");
+		
+		if(k == -1)
+			System.out.println("Index should be positive number.");
+		
+		root.findKthLargestNode(k);
 	}
 	
 	public void removeHalfNodes() {
@@ -360,6 +372,30 @@ public class BTree {
 			this.value = value;
 		}
 		
+		/**
+		 * Traverse the tree in reverse inorder, in this way the values<br/>
+		 * would be in decreasing order.<br/>
+		 * Count visited nodes and compare node counter with passed K.<br/>
+		 * If node counter is equal to K, it means current node is Kth largest<br/> 
+		 * in the Tree.
+		 */
+		private void findKthLargestNode(int k) {
+			if(nodeCounter >= k)
+				return ;
+			
+			if(this.right != null)
+				this.right.findKthLargestNode(k);
+			
+			nodeCounter++;
+			
+			if(nodeCounter == k)
+				System.out.println(k+"th largest value in this tree is- "+this.value);
+			
+			if(this.left != null)
+				this.left.findKthLargestNode(k);
+			
+		}
+
 		/**
 		 * Method to remove Half nodes in a tree.<br/>
 		 * If one of its left and right child is null for a node, remove<br/>
