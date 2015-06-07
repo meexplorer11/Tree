@@ -93,6 +93,8 @@ public class BTreeDemo {
 		System.out.println("\nAfter removing half nodes-");
 		t.inorderTraversal();
 		System.out.println("\nRemove Half node ends-----");
+		
+		tree.findKthLargestNode(2);
 	}
 
 }
