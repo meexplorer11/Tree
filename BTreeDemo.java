@@ -89,12 +89,16 @@ public class BTreeDemo {
 			t.add(value);
 		}
 		t.inorderTraversal();
+		System.out.println("\nIs this a full binary tree- "+t.isFullBinaryTree());
 		t.removeHalfNodes();
 		System.out.println("\nAfter removing half nodes-");
 		t.inorderTraversal();
 		System.out.println("\nRemove Half node ends-----");
 		
 		tree.findKthLargestNode(2);
+		
+		System.out.println("\nIs this a full binary tree- "+tree.isFullBinaryTree());
+		tree.findLeftLeaves();
 	}
 
 }
