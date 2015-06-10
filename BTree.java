@@ -33,6 +33,30 @@ public class BTree {
 		nodeCounter = 0;
 	}
 	
+	public void findLeftLeaves() {
+		if(root == null)
+			System.out.println("Tree is empty !");
+		
+		List<BNode> nodeList = new ArrayList<BNode>();
+		root.findLeftLeaves(nodeList);
+		
+		if(nodeList.isEmpty())
+			System.out.println("No left leaves !");
+		else {
+			System.out.println("Left leaves- ");
+			for(BNode node : nodeList) {
+				System.out.print(node.value+", ");
+			}
+		}
+	}
+	
+	public boolean isFullBinaryTree() {
+		if(root == null)
+			return true;
+		
+		return root.isFullBinaryTree();
+	}
+	
 	public void findKthLargestNode(int k) {
 		if(root == null)
 			System.out.println("Tree is empty !");
@@ -372,6 +396,45 @@ public class BTree {
 			this.value = value;
 		}
 		
+		/**
+		 * Method finds all left leaf nodes of a Tree.<br/>
+		 * Leaf node which is left child of a node. 
+		 */
+		private void findLeftLeaves(List<BNode> nodeList) {
+			if(isLeaf(this.left))
+				nodeList.add(this.left);
+			else if(this.left != null)
+				this.left.findLeftLeaves(nodeList);
+			
+			if(this.right != null)
+				this.right.findLeftLeaves(nodeList);
+		}
+		
+		private boolean isLeaf(BNode node) {
+			if(node == null)
+				return false;
+			
+			if(node.left == null && node.right == null)
+				return true;
+			
+			return false;
+		}
+
+		/**
+		 * In full binary tree, every node has 0 or 2 children.<br/>
+		 * If node's left and right sub-trees are null, this sub-tree is full tree.<br/>
+		 * If both children are not null, check recursively for both children.
+		 */
+		private boolean isFullBinaryTree() {
+			if(this.left == null && this.right == null)
+				return true;
+			
+			if(this.left != null && this.right != null)
+				return this.left.isFullBinaryTree() && this.right.isFullBinaryTree();
+			
+			return false;
+		}
+
 		/**
 		 * Traverse the tree in reverse inorder, in this way the values<br/>
 		 * would be in decreasing order.<br/>
